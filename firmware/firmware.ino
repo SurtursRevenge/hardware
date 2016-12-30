@@ -50,23 +50,34 @@ void loop()
     Serial.print("\n");
 
     buzzer_first_pressed = 0;
-    waiting = 0;
+    waiting = false;
   }
 
   if(input_complete)
   {
-    if(input.equals("reset"))
+    if(input.equals("R")) //reset
     {
-      waiting = false;
-      Serial.print("ready\n");
+      if (buzzer_first_pressed != 0) // no buzzer pressed - Ready 4 Game
+      { 
+        waiting = true;
+        Serial.print("A\n");
+      } 
+      else   // buzzer pressed - gives idiot who is not releasing it
+      { 
+        Serial.print(buzzer_first_pressed);
+        Serial.print("\n");
+      }
     }
-    else if(input.equals("start"))
+    else if(input.equals("A")) // async modus
     {
-      waiting = true;
-      Serial.print("ready\n");
+      Serial.print("A\n");
+    }
+    else if(input.equals("S") or input.equals("Q")) // sync modus
+    {
+      Serial.print("ERROR - Sync Mode not supported\n");
     }
     else
-      Serial.print("unknown command\n");
+      Serial.print("ERROR - unknown command\n");
 
     input_complete = false;
     input = "";
