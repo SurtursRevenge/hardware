@@ -1,0 +1,17 @@
+Befehls-Liste:
+
+'R' : restart - Versucht eine neue Runde zu starten. Falls noch Buzzer gedrückt sind, kann keine neue Runde gestartet werden und die Nummer des noch 
+      gedrückten Buzzers ('1'-'4') wird zurückgegeben. Ansonsten wird 'A' (ACK) zurückgegeben.
+
+'Q' : query - sendet die Nummer des Gewinners ('1'-'4') der aktuellen Runde zurück. Wurde der aktullen Runde noch kein Buzzer gedrückt wird '0' 
+      zurückgegeben und wurde nach einem Reset noch keine 1. Runde gestartet wird 'E' (ERR) zurückgegeben.
+
+'S' : synchronous - versetzt das Board in den synchronen Modus. Der aktuelle Gewinner einer Runde wird nicht mehr selbstständig gemeldet sonder muss 
+      mittels 'Q'-Kommandos ermittelt werden. Gibt 'A' (ACK) zurück.
+
+'A' : asynchronous - versetzt das Board in den asynchronen Modus. Der aktuelle Gewinner einer Runde wird vom Baord selbstständig als Nummer 
+      gemeldet ('1'-'4') sobald dieser ermittelt ist. Gibt 'A' (ACK) zurück.
+
+
+Original Beopardy nutzt nur Async (sagte SEC) - Q / S werden nicht genutzt
+Jede Ausgabe wird mit \r oder \n beendet

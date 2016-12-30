@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0036)http://www.42.org/~mh/BeopardyBoard/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>BeopardyBoard &lt; Main &lt; TWiki</title>
+</head><body>
+<h1><a name="Aufbau_der_Beopardy_Hardware"> </a> Aufbau der Beopardy Hardware </h1>
+<p>
+Hier ist sie also. Lange versprochen und noch länger vor mir
+hergeschoben... Und dannnochmal verzögert weils eigentlich schon
+peinlich is. ;)
+Hier ist die <strong>ganze Wahrheit über die Beopardy Hardware</strong>.
+</p>
+<center><img src="./BeopardyBoard _ Main _ TWiki_files/Board_old_thumb.jpg" alt="Beopardy Board Alt"></center>
+<h2><a name="Buzzer"> </a> Buzzer </h2>
+<p>
+Das so ziemlich wichtigste und auch das teuerste an der Hardware sind
+eigentlich die Beopardy-Buzzer. Diese sind von der Bauart und vom
+Design die gleichen wie sie auch in einigen Quizshows im Fernsehen
+verwendet werden / wurden.
+</p>
+<table><tbody><tr><td>
+Wir haben unsere Buzzer bei "<a href="http://www.rsonline.de/" target="_top">R+S Elektronik</a>"
+bestellt. Leider kann man in dem Webshop nicht direkt verlinken. Die
+korrekte Bezeichnung für die Buzzer ist "Handballenschalter" oder
+"Fuss- und Grobhandtaster" und
+unsere Ausführung ist unter der Bestellnummer "225-8172" zu bekommen.
+Die größte Herrausforderung hierbei ist bei RS zu bestellen, weil RS
+nur an gewebliche Kunden liefert.
+</td><td>
+<a href="http://www.42.org/~mh/BeopardyBoard/BeopardyBoard_files/Buzzer.jpg"><img src="./BeopardyBoard _ Main _ TWiki_files/Buzzer_thumb.jpg" alt="Buzzer"></a>
+</td></tr></tbody></table>
+<p>Wer alternative Taster sucht wird evtl. auch unter dem Begriff
+"Not-Aus Taster" oder "Industrietaster" fündig. Dabei sollte man noch
+darauf achten die Taster in der "nicht-rastend" zu kaufen oder man muss
+die Rastung eben selber rausbasteln. (Bei den Not-Aus-Tastern von
+Conrad möglich, aber ich habe keine Ahnung wie das gemacht wurde.. ;)
+</p><p>
+Die Buzzer werden dann einfach als "normally closed" Schalter an das Board angeschlossen.
+</p>
+<h2><a name="Verkabelung"> </a><a name="Verkabelung_"> </a> Verkabelung.. </h2>
+<p>
+.. ist immernoch ein endloses Chaos. Die Buzzer werden im Moment noch
+mit vier Stücken Lautsprecherkabel angeschlossen die auf einer
+Lüsterklemmenleiste enden.
+Jedes andere zweiadrige Kabel tuts auch.
+</p>
+<h2><a name="Beopardy_Board"> </a> Beopardy Board </h2>
+<p>Mit dem Beopardy Board werden die Tasterdrücke regisitriert und über
+ein einfaches ASCII-Protokoll seriell zum Game-Rechner gemeldet.
+Das Board arbeitet dabei in Runden. D.h. in einer Runde wird nur der
+schnellste Mitspieler gemeldet (der Gewinner) und alle späteren
+ignoriert. Zwischen zwei Runden muss das Baord
+erst wieder scharf gemacht werden.
+</p><p>Zur Signallisierung unterstützt das Board zwei Modi, asynchron
+und synchron. Im asynchronen Modus wird der Gewinner einer Runde vom
+Baord eigenständig zum Game-Rechner gesendet, während
+im synchronen Modus der Game-Rechner in regelmässigen Abständen pollen
+muss. Die Game-Software verwendet im Moment ausschliesslichen den
+asynchronen Modus.
+</p>
+<h2><a name="Schematics"> </a> Schematics </h2>
+<p>
+Hier also die Schematics für das Beopardy Board. mit <a href="http://www.42.org/~mh/BeopardyBoard/BeopardyBoard_files/beopardy.bom">Bill of Materials</a>
+</p>
+<center><a href="http://www.42.org/~mh/BeopardyBoard/BeopardyBoard_files/beopardy_schematics.png"><img src="./BeopardyBoard _ Main _ TWiki_files/beopardy_schematics_thumb.png" alt="Schematics"></a></center>
+<p>Das Baord ist ein einfacher 8051 Mikrocontroller als ein-Chip-System
+mit seriellem Interface. Die Taster werden an Treiber mit
+Schmitt-Trigger angeschlossen und an Eingänge des Mikrocontrollers
+verbunden. Ausserdem wird mit Hilfe eines Oder-Gatters und eines
+Monoflops beim Druck einer Taste ein Interrupt am Kontroller ausgelöst.
+</p>
+<table><tbody><tr><td>
+<a href="http://www.42.org/~mh/BeopardyBoard/BeopardyBoard_files/Board_new.jpg"><img src="./BeopardyBoard _ Main _ TWiki_files/Board_new_thumb.jpg" alt="Beopardy Board Neu"></a>
+</td><td>
+Nach dem refaktoren der Hardware wurde das Board ein ganzes Stück schlanker im Vergleich zum Orginal ;) 
+</td></tr></tbody></table>
+<h2><a name="Firmware"> </a> Firmware </h2>
+<p>
+Die aktuelle Firmware für den Microcontroller ist <a href="http://www.42.org/~mh/BeopardyBoard/BeopardyBoard_files/Beopardy_1.3p2_C_4p.bin">Beopardy V1.3p2_C_4p</a>. Leider ist diese Version nur als Binärdatei verfügbar (bis jemand mal die Unterschiede wieder reverse engeneeert ;)
+Die letzte Version von der der Source noch existiert ist <a href="http://www.42.org/~mh/BeopardyBoard/BeopardyBoard_files/Beopardy_1.2p2_C.tar.gz">Beopardy V1.2p2_C</a>.
+</p>
+<h2><a name="Interface"> </a> Interface </h2>
+<p>Das Board redet mit dem Game-Rechner über eine normale RS232
+serielle Schnittstelle mit 19k2 Baud 8N1 ohne Handshake. Das Protokoll
+ist ein einfaches ASCII Query-Response-Protokoll, bei dem jeder Befehl
+von
+Host-Seite und jede Antwort des Boards aus einem Zeichen (gefolgt von
+\r\n) besteht. Als Answer-To-Reset sendet das Board zu Beginn einmal
+einen Identifikationsstring mit Versionsinformation.
+</p><p>
+Befehls-Liste:
+</p>
+<ul>
+<li> 'R' : restart - Versucht eine neue Runde zu starten. Falls noch
+Buzzer gedrückt sind, kann keine neue Runde gestartet werden und die
+Nummer des noch gedrückten Buzzers ('1'-'4') wird zurückgegeben.
+Ansonsten wird 'A' (ACK) zurückgegeben.
+</li>
+<li> 'Q' : query - sendet die Nummer des Gewinners ('1'-'4') der
+aktuellen Runde zurück. Wurde der aktullen Runde noch kein Buzzer
+gedrückt wird '0' zurückgegeben und wurde nach einem Reset noch keine
+1. Runde gestartet wird 'E' (ERR) zurückgegeben.
+</li>
+<li> 'S' : synchronous - versetzt das Board in den synchronen Modus.
+Der aktuelle Gewinner einer Runde wird nicht mehr selbstständig
+gemeldet sonder muss mittels 'Q'-Kommandos ermittelt werden. Gibt 'A'
+(ACK) zurück.
+</li>
+<li> 'A' : asynchronous - versetzt das Board in den asynchronen Modus.
+Der aktuelle Gewinner einer Runde wird vom Baord selbstständig als
+Nummer gemeldet ('1'-'4') sobald dieser ermittelt ist. Gibt 'A' (ACK)
+zurück.
+</li>
+</ul>
+<h2><a name="Feedback"> </a> Feedback </h2>
+Fragen, Kommentare usw. einfach an <a href="mailto:beopardy@hrz.net">beopardy@hrz.net</a>
+schicken. Viel spass.
+
+</body></html>
