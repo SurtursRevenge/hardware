@@ -44,7 +44,7 @@ void loop()
 
   update_buzzer();
 
-  if(waiting and buzzer_first_pressed != 0)
+  if(waiting and buzzer_first_pressed = 0)
   {
     Serial.print(buzzer_first_pressed);
     Serial.print("\n");
