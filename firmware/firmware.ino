@@ -44,7 +44,7 @@ void loop()
 
   update_buzzer();
 
-  if(waiting and buzzer_first_pressed = 0)
+  if(waiting and buzzer_first_pressed != 0)
   {
     Serial.print(buzzer_first_pressed);
     Serial.print("\n");
@@ -57,7 +57,7 @@ void loop()
   {
     if(input.equals("R")) //reset
     {
-      if (buzzer_first_pressed != 0) // no buzzer pressed - Ready 4 Game
+      if (buzzer_first_pressed == 0) // no buzzer pressed - Ready 4 Game
       { 
         waiting = true;
         Serial.print("A\n");
