@@ -25,7 +25,7 @@ boolean input_complete = false;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(19200);
 
   input.reserve(200);
 
@@ -89,7 +89,7 @@ void update_input()
 {
   while(Serial.available())
   {
-    char tmp = Serial.read();
+    /*char tmp = Serial.read();
 
     if (tmp == '\n')
     {
@@ -97,7 +97,14 @@ void update_input()
       return;
     }
     else
-      input += tmp;
+      input += tmp; */
+    if (Serial.available() > 0) {
+      char tmp = Serial.read();
+      if (tmp != '\r' and tmp != '\n') {
+        input += tmp;
+        input_complete = true;
+      }
+    }
   }
 }
 
