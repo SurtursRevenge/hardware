@@ -32,7 +32,7 @@ void setup()
   for(int i = 0; i < buzzer_pins_count; i ++)
   {
     pinMode(buzzer_pins[i], INPUT_PULLUP);
-    buzzer_last_values[i] = HIGH;
+    buzzer_last_values[i] = LOW;
     buzzer_debounce[i] = 0;
   }
 }
@@ -122,7 +122,7 @@ void update_buzzer()
         buzzer_last_values[i] = value;
         buzzer_debounce[i] = millis();
 
-        if(value == LOW && waiting && buzzer_first_pressed == 0)
+        if(value == HIGH && waiting && buzzer_first_pressed == 0)
           buzzer_first_pressed = i+1;
       }
     }
