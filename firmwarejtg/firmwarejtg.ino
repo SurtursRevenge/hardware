@@ -43,7 +43,7 @@ void loop()
   if(waiting and buzzer_first_pressed != 0)
   {
     Serial.print(buzzer_first_pressed);
-    Serial.print("\n");
+    Serial.print("\r\n");
 
     buzzer_first_pressed = 0;
     waiting = false;
@@ -56,7 +56,7 @@ void loop()
       if (buzzer_first_pressed == 0) // no buzzer pressed - Ready 4 Game
       { 
         waiting = true;
-        Serial.print("A\n");
+        Serial.print("A\r\n");
       } 
       else   // buzzer pressed - gives idiot who is not releasing it
       { 
@@ -66,14 +66,14 @@ void loop()
     }
     else if(input.equals("A")) // async modus
     {
-      Serial.print("A\n");
+      Serial.print("A\r\n");
     }
     else if(input.equals("S") or input.equals("Q")) // sync modus
     {
-      Serial.print("ERROR - Sync Mode not supported\n");
+      Serial.print("ERROR - Sync Mode not supported\r\n");
     }
     else
-      Serial.print("ERROR - unknown command\n");
+      Serial.print("ERROR - unknown command\r\n");
 
     input_complete = false;
     input = "";
